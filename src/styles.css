@@ -1,0 +1,79 @@
+@import url(./assets/css/scheme.css);
+
+:root {
+    color: var(--clr-primary-a40);
+    background-color: var(--clr-neutral-a0);
+    /* border-color: var(--clr-primary-a10); */
+    /* border: 5px solid var(--clr-primary-a10); */
+    
+    --gap: 15px; 
+}
+
+
+body {
+    width: 80%;
+    margin: 50px auto;
+}
+
+
+/* || ___NAVBAR___ */
+
+.nav {
+    display: grid;
+    grid-template-rows: 150px;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: 
+        "header projects";
+}
+
+.nav__header {
+    grid-area: "header",
+}
+
+.nav__projects {
+    grid-area: "projects";
+
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-template-areas: 
+        "slot1 slot2 slot3"
+        "slot4 slot5 slot6";
+}
+
+
+/* || ___DECK____ */
+
+
+.deck {
+
+    display: grid;
+    grid-template-rows: repeat(3, 150px);
+    grid-template-columns: 50px repeat(4, 1fr);
+    gap: var(--gap);
+
+    padding: 30px 0;
+}
+
+.deck__slot {
+    background-color: var(--clr-neutral-a10);
+}
+
+
+/* || ___DETAILS___ */
+
+.details {
+    min-height: 200px;
+    border: 2px solid antiquewhite;
+    border-radius: 5px;
+}
+
+
+
+
+/* || __MIXES___ */
+
+/* button {
+    background-color: var(--clr-neutral-a10);
+} */
