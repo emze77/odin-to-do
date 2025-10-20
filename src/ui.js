@@ -1,4 +1,5 @@
-import { createAndAppend } from "./utils.js";
+import { createAndAppend, createAndAppendInput } from "./utils.js";
+
 
 const buttons = {
   projects: document.querySelectorAll("#nav__projects"),
@@ -6,17 +7,43 @@ const buttons = {
   deck: document.querySelectorAll("#deck"),
 };
 
-const entryDialog = document.querySelector("#entryDialog");
+const entryDialog = document.querySelector("#entry-dialog");
+const entryDialogContent = document.querySelector("#entry-dialog__content");
+
 
 
 function openNewProjectBox() {
+  clearDialog();
+  createNewProjectForm();
   entryDialog.showModal();
 }
 
-function createNewProjectForm () {
-    
+function createNewProjectForm() {
+  createAndAppend(
+    "h2",
+    "entry-dialog",
+    "title",
+    "",
+    "New Project",
+    "entry-dialog__content"
+  );
+  createAndAppendInput(
+    "Project Name:",
+    "text",
+    "entry-dialog",
+    "project-name",
+    "",
+    "",
+    true,
+    "entry-dialog__content"
+  );
+  createAndAppendInput("Project Color: ", "color", "entry-dialog", "color-selector", "", "", false, 
+    "entry-dialog__content")
 }
 
-
-
+function clearDialog() {
+  while (entryDialogContent.hasChildNodes()) {
+    entryDialogContent.removeChild(entryDialogContent.firstChild);
+  }
+}
 export { buttons, openNewProjectBox, createNewProjectForm };

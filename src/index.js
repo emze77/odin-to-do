@@ -9,3 +9,4 @@ buttons.projects.forEach((item) => {
     handleButtonClick("project");
   });
 });
+

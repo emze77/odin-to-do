@@ -10,6 +10,7 @@
     <nav id="nav" class="nav">
       <div id="nav__header" class="nav__header">
         <h1>Blockedhead</h1>
+        <p>Your head is limited and its ain't getting better with too much things on your mind. <br> Get rid of some! </p>
       </div>
       <div id="nav__projects" class="nav__projects">
         <button id="nav__slot0" class="nav__slot"></button>
@@ -40,25 +41,27 @@
     <div id="details" class="details"></div>
 
     <!-- A modal dialog containing a form -->
-    <dialog id="entryDialog" class="entryDialog" closedby="any">
-      <form>
+    <dialog id="entry-dialog" class="entry-dialog" closedby="any">
+      <form id="entry-dialog__form" class="entry-dialog__form">
+        <div id="entry-dialog__content" class="entry-dialog__content"></div>
+        
         <!-- <h2 id="entryDialog__title" class="entryDialog__title"></h2> -->
         <!-- <div id="">
           <label for="entryDialog__textInput" id="entryDialog__textInputLabel"> Configure.... </label>
           <input type="text" id="entryDialog__textInput" class="entryDialog__input" autofocus />
         </div> -->
-        <div>
+        <div class="entry-dialog__buttons">
           <button
             value="cancel"
             formmethod="dialog"
-            class="entryDialog__Button"
+            class="entry-dialog__button"
           >
             Cancel
           </button>
           <button
-            id="entryDialog__confirmButton"
+            id="entry-dialog__confirm-button"
             value="default"
-            class="entryDialog__Button"
+            class="entry-dialog__button"
           >
             Confirm
           </button>

@@ -1,4 +1,5 @@
 import { openNewProjectBox } from "./ui.js";
+import Picker from "vanilla-picker";
 
 function handleButtonClick(type) {
   if (type === "project") {
@@ -8,12 +9,23 @@ function handleButtonClick(type) {
   }
 }
 
-function createAndAppend(type, id, classes, text, childOfId) {
+/* createAndAppend* following the BEM-Methology. The ID and first class are normalized. */
+
+function createAndAppend(
+  type,
+  blockName,
+  elementName,
+  additionalToIdClasses,
+  text,
+  childOfId
+) {
   console.log("createAndAppend started!");
   let element = document.createElement(`${type}`);
-
-  element.setAttribute("id", id);
-  addClassestoElement(element, classes);
+  if (elementName !== "") {
+    element.setAttribute("id", `${blockName}__${elementName}`);
+  }
+  element.classList.add(`${blockName}__${elementName}`);
+  addClassesToElement(element, additionalToIdClasses);
   element.innerHTML = text;
   document.querySelector(`#${childOfId}`).appendChild(element);
 }
@@ -21,39 +33,43 @@ function createAndAppend(type, id, classes, text, childOfId) {
 function createAndAppendInput(
   labelText,
   inputType,
-  id,
-  labelClasses,
-  inputClasses,
+  blockName,
+  elementName,
+  additionalToIdLabelClasses,
+  additionalToIdInputClasses,
   autofocus,
   childOfId
 ) {
   console.log("createAndAppendInput started!");
 
   let label = document.createElement("label");
-  label.setAttribute("for", id);
-  label.setAttribute("id", id + "Label");
+  if (elementName !== "") {
+    label.setAttribute("for", `${blockName}__${elementName}`);
+    label.setAttribute("id", `${blockName}__${elementName}-label`);
+    label.classList.add(`${blockName}__${elementName}-label`);
+  }
+  addClassesToElement(label, additionalToIdLabelClasses);
   label.innerText = labelText;
-  addClassestoElement(label, labelClasses);
   document.querySelector(`#${childOfId}`).appendChild(label);
 
   let input = document.createElement("input");
-  input.setAttribute("type", type);
-  input.setAttribute("id", id);
-  input.setAttribute("inputType", inputType)
-  addClassestoElement(input, inputClasses);
+  input.setAttribute("type", inputType);
+  if (elementName !== "") {
+    input.setAttribute("id", `${blockName}__${elementName}`);
+    input.classList.add(`${blockName}__${elementName}`);
+  }
+  addClassesToElement(input, additionalToIdInputClasses);
   if (autofocus) input.focus();
   document.querySelector(`#${childOfId}`).appendChild(input);
 }
 
-function addClassestoElement(element, classes) {
-  console.log(
-    `classes.constructor === Array? ${classes.constructor === Array}`
-  );
-  if (classes.constructor === Array) {
+function addClassesToElement(element, classes) {
+  if (classes === ""|| classes === undefined) {
+    return;
+  } else if (classes.constructor === Array) {
     for (let i = 0; i < classes.length; i++) {
       element.classList.add(classes[i]);
     }
-  } else if (classes === "") {
   } else {
     element.classList.add(classes);
   }
