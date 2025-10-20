@@ -9,7 +9,8 @@ function handleButtonClick(type) {
   }
 }
 
-/* createAndAppend* following the BEM-Methology. The ID and first class are normalized. */
+/* createAndAppends following the BEM-Methology. 
+The ID and first class are noramlized. */
 
 function createAndAppend(
   type,
@@ -23,8 +24,8 @@ function createAndAppend(
   let element = document.createElement(`${type}`);
   if (elementName !== "") {
     element.setAttribute("id", `${blockName}__${elementName}`);
+    element.classList.add(`${blockName}__${elementName}`);
   }
-  element.classList.add(`${blockName}__${elementName}`);
   addClassesToElement(element, additionalToIdClasses);
   element.innerHTML = text;
   document.querySelector(`#${childOfId}`).appendChild(element);
@@ -35,36 +36,54 @@ function createAndAppendInput(
   inputType,
   blockName,
   elementName,
-  additionalToIdLabelClasses,
-  additionalToIdInputClasses,
+  additionalLabelClasses,
+  additionalInputClasses,
+  additionalInputAttributes,
   autofocus,
-  childOfId
+  childOfId, 
 ) {
   console.log("createAndAppendInput started!");
 
-  let label = document.createElement("label");
+  // create common div
+  const block = document.createElement("div");
+  block.setAttribute("id", `${blockName}__${elementName}-block`);
+  block.classList.add(`${blockName}__${elementName}-block`);
+  document.querySelector(`#${childOfId}`).appendChild(block);
+
+  // create Label
+  const label = document.createElement("label");
   if (elementName !== "") {
     label.setAttribute("for", `${blockName}__${elementName}`);
     label.setAttribute("id", `${blockName}__${elementName}-label`);
     label.classList.add(`${blockName}__${elementName}-label`);
   }
-  addClassesToElement(label, additionalToIdLabelClasses);
+  addClassesToElement(label, additionalLabelClasses);
   label.innerText = labelText;
-  document.querySelector(`#${childOfId}`).appendChild(label);
+  document
+    .querySelector(`#${blockName}__${elementName}-block`)
+    .appendChild(label);
 
-  let input = document.createElement("input");
+  // create Input
+  const input = document.createElement("input");
   input.setAttribute("type", inputType);
   if (elementName !== "") {
     input.setAttribute("id", `${blockName}__${elementName}`);
     input.classList.add(`${blockName}__${elementName}`);
   }
-  addClassesToElement(input, additionalToIdInputClasses);
+  addClassesToElement(input, additionalInputClasses);
   if (autofocus) input.focus();
-  document.querySelector(`#${childOfId}`).appendChild(input);
+
+  if (additionalInputAttributes !== "") {
+    console.log("additionalAttributes Type: " + typeof additionalInputAttributes)
+    addAdditionalAttributes(input, additionalInputAttributes);
+  }
+  document
+    .querySelector(`#${blockName}__${elementName}-block`)
+    .appendChild(input);
 }
 
 function addClassesToElement(element, classes) {
-  if (classes === ""|| classes === undefined) {
+  if (classes === "" || classes === undefined) {
     return;
   } else if (classes.constructor === Array) {
     for (let i = 0; i < classes.length; i++) {
@@ -72,6 +91,17 @@ function addClassesToElement(element, classes) {
     }
   } else {
     element.classList.add(classes);
+  }
+}
+
+function addAdditionalAttributes (element, attributes) {
+  if (attributes.constructor !== Object) {
+    console.log("Additional Attributes must be Object");
+    return;
+  }
+
+  for (let [key, value] of Object.entries(attributes)) {
+    element.setAttribute(key, value)
   }
 }
 

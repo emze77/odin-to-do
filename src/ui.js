@@ -1,6 +1,5 @@
 import { createAndAppend, createAndAppendInput } from "./utils.js";
 
-
 const buttons = {
   projects: document.querySelectorAll("#nav__projects"),
   // upper Row: 1 - 4, middle row: 6 - 10, lower row: 12 - 16
@@ -9,8 +8,6 @@ const buttons = {
 
 const entryDialog = document.querySelector("#entry-dialog");
 const entryDialogContent = document.querySelector("#entry-dialog__content");
-
-
 
 function openNewProjectBox() {
   clearDialog();
@@ -34,11 +31,21 @@ function createNewProjectForm() {
     "project-name",
     "",
     "",
+    "",
     true,
     "entry-dialog__content"
   );
-  createAndAppendInput("Project Color: ", "color", "entry-dialog", "color-selector", "", "", false, 
-    "entry-dialog__content")
+  createAndAppendInput(
+    "Project Color: ",
+    "color",
+    "entry-dialog",
+    "color-selector",
+    "",
+    "",
+    { value: "oklab(50% 0.1 0.1 / 0.5)", colorspace: "display-p3" },
+    false,
+    "entry-dialog__content",
+  );
 }
 
 function clearDialog() {
